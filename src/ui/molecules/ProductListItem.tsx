@@ -10,7 +10,7 @@ type ProductListItemDescProps = {
 
 export const ProductListItem = ({product}: ProductListItemDescProps) => {
 return (
-    <li data-testid="products-list">
+    <li>
         <article>
             <ProductCoverImage src={product.coverImage.src} alt={product.coverImage.alt}/>
             <ProductListItemDesc product={product}/> 

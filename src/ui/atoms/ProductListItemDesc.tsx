@@ -10,7 +10,7 @@ export const ProductListItemDesc = ({
   return (
     <div className="flex flex-col justify-between">
       <div className="flex flex-col justify-between">
-        <h2 className="text-xl font-bold">{name}</h2>
+        <h3 className="text-xl font-bold">{name}</h3>
         <p className="text-sm">{category}</p>
       </div>
       <div className="flex justify-between">

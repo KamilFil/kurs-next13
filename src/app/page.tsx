@@ -1,8 +1,16 @@
-import { ProductCounter } from "@/ui/atoms/ProductCounter";
+import { getProductsList } from "@/api/products";
+import { ProductList } from "@/ui/organisms/ProductList";
 
-export default function Home() {
+
+export default async function HomePage() {
+
+const products = await getProductsList()
+products.splice(4, products.length)
+
+
   return (<>
- <h1>Strona główna</h1>
- <ProductCounter/>
+
+<ProductList products={products}/>
+
  </>);
 }

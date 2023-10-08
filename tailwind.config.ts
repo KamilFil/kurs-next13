@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -17,4 +18,5 @@ const config: Config = {
   },
   plugins: [],
 };
+/* eslint-disable import/no-default-export */
 export default config;

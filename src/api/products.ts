@@ -33,6 +33,7 @@ type ResProductTypes = {
         name: product.title,
         category: product.category,
         price: product.price,
+        description: product.description,
         coverImage: {
           src: product.image,
           alt: product.title,

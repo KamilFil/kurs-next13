@@ -17,7 +17,7 @@ export const ActiveLink = <T extends string> ({
     href,
     children,
     exact = true,
-    className = "text-blue-400 hover:text-blue-600",
+    className = "text-blue-400 hover:text-blue-600 m-2 font-bold",
     activeClassName = "underline",
 
 }: ActiveLinkProps<T>) => {

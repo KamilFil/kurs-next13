@@ -16,7 +16,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/typography"),
+  ],
 };
 /* eslint-disable import/no-default-export */
 export default config;

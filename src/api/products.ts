@@ -1,42 +1,36 @@
-import { type ProductItemTypes } from "@/ui/types"
+import { executeGraphql } from "./graphqlApi";
+import {
+	ProductGetByCategorySlugDocument,
+	ProductGetByIdDocument,
+	ProductGetListDocument,
+} from "@/gql/graphql";
 
-type ResProductTypes = {
-    id: string
-    title: string
-    price: number
-    description: string
-    category: string
-    rating: {
-      rate: number
-      count: number
-    }
-    image:string,
-    longDescription: string
-    }
-    
-    export async function getProductsList() {
-    const res = await fetch('https://naszsklep-api.vercel.app/api/products')
-    const productsResponse = (await res.json()) as ResProductTypes[]
-    const products = productsResponse.map(ProductResponeItemToResponseProductItem)
-    
-    return products
-    }
+export const getProductsList = async () => {
+	const graphqlResponse = await executeGraphql(
+		ProductGetListDocument,
+		{},
+	);
 
-    export const getProductById = async (id: string) => {
-        const res = await fetch(`https://naszsklep-api.vercel.app/api/products/${id}`)
-        const productsResponse = (await res.json()) as ResProductTypes
-        return ProductResponeItemToResponseProductItem(productsResponse)
-    }
-    export const ProductResponeItemToResponseProductItem = (product: ResProductTypes): ProductItemTypes => {
-        return {
-        id: product.id,
-        name: product.title,
-        category: product.category,
-        price: product.price,
-        description: product.description,
-        coverImage: {
-          src: product.image,
-          alt: product.title,
-        },
-    }
-        }
+	return graphqlResponse.products;
+};
+
+export const getProductsListByCategory = async (
+	categorySlug: string,
+) => {
+	const graphqlResponse = await executeGraphql(
+		ProductGetByCategorySlugDocument,
+		{
+			slug: categorySlug,
+		},
+	);
+
+	return graphqlResponse.categories[0]?.products;
+};
+
+export const getProductById = async (id: string) => {
+	const graphqlResponse = await executeGraphql(
+		ProductGetByIdDocument,
+		{ id: id },
+	);
+	return graphqlResponse.products[0];
+};

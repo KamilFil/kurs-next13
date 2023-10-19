@@ -1,30 +1,42 @@
-"use client"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { type ReactNode } from "react"
-import { type Route } from "next"
-
+"use client";
+import { type UrlObject } from "url";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { type ReactNode } from "react";
+import { type Route } from "next";
+import clsx from "clsx";
 
 type ActiveLinkProps<T extends string> = {
-    href: Route<T>;
-    children: ReactNode;
-    exact?: boolean;
-    className?: string;
-    activeClassName?: string;
-}
+	href: Route<T> | UrlObject;
+	children: ReactNode;
+	exact?: boolean;
+	className?: string;
+	activeClassName?: string;
+};
 
-export const ActiveLink = <T extends string> ({
-    href,
-    children,
-    exact = true,
-    className = "text-blue-400 hover:text-blue-600 m-2 font-bold",
-    activeClassName = "underline",
-
+export const ActiveLink = <T extends string>({
+	href,
+	children,
+	exact = false,
+	className = "flex h-full w-full min-w-[3rem] items-center justify-center border-b-2 border-transparent px-1 pt-1 text-center text-sm font-medium text-slate-500 hover:border-gray-300 hover:text-slate-700",
+	activeClassName = "border-blue-300",
 }: ActiveLinkProps<T>) => {
-const pathname = usePathname()
-const isAactive = exact ? pathname === href : pathname.startsWith(href)
+	const pathname = usePathname();
+	const path = typeof href === "string" ? href : href.pathname || "";
 
-return (
-    <Link aria-current={isAactive ? 'page' : 'false'} href={href} className={`${className} ${isAactive && activeClassName}`}>{children}</Link>
-)
-} 
+	const isActive = exact
+		? pathname === path
+		: pathname.startsWith(`${path}`);
+
+	return (
+		<li className="h-full w-full">
+			<Link
+				aria-current={isActive ? true : undefined}
+				href={href}
+				className={clsx(className, `${isActive && activeClassName}`)}
+			>
+				{children}
+			</Link>
+		</li>
+	);
+};

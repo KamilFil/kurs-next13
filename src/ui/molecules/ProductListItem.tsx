@@ -1,23 +1,32 @@
-import Link from "next/link"
-import { type ProductItemTypes } from "../types"
-import { ProductCoverImage } from "@/ui/atoms/ProductCoverlmage"
-import { ProductListItemDesc } from "@/ui/atoms/ProductListItemDesc"
+import Link from "next/link";
+
+import { ProductCoverImage } from "@/ui/atoms/ProductCoverlmage";
+import { ProductListItemDesc } from "@/ui/atoms/ProductListItemDesc";
+import { type ProductListItemFragment } from "@/gql/graphql";
 
 type ProductListItemDescProps = {
-    product: ProductItemTypes
-    }
+	product: ProductListItemFragment;
+};
 
 
 
-export const ProductListItem = ({product}: ProductListItemDescProps) => {
-return (
-   <li className="w-1/5 m-4 p-3 border-spacing-2 border">
-    <Link href={`/product/${product.id}`}>
-        <article>
-            <ProductCoverImage src={product.coverImage.src} alt={product.coverImage.alt}/>
-            <ProductListItemDesc product={product}/> 
-        </article>
-    </Link>
-   </li>
-)
-}
+export const ProductListItem = ({
+	product,
+}: ProductListItemDescProps) => {
+	return (
+		<li className="m-4 w-1/5 border-spacing-2 border p-3">
+			<Link href={`/product/${product.id}`}>
+				<article>
+					{product.images[0] && (
+						<ProductCoverImage
+							src={product.images[0].url}
+							alt={product.name}
+						/>
+					)}
+
+					<ProductListItemDesc product={product} />
+				</article>
+			</Link>
+		</li>
+	);
+};

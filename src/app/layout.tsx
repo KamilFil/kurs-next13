@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Inter } from "next/font/google";
 import { Header } from "@/ui/organisms/Header";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -14,7 +17,7 @@ export default function HomePage({
 }) {
 	return (
 		<html lang="pl">
-			<body className="">
+			<body className={inter.className}>
 				<Header />
 				<section className="mx-auto max-w-7xl p-8">
 					{children}

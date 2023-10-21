@@ -31,5 +31,5 @@ export default async function SingleProductPage({
 		throw notFound();
 	}
 
-	return <SingleProduct product={product} />;
+	return <SingleProduct product={product}  />;
 }

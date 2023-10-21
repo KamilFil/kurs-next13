@@ -1,9 +1,16 @@
 import { type TypedDocumentString } from "@/gql/graphql";
 
-export const executeGraphql = async <TResult, TypeVariables>(
-	query: TypedDocumentString<TResult, TypeVariables>,
-	variables: TypeVariables,
-): Promise<TResult> => {
+export const executeGraphql = async <TResult, TypeVariables>({
+	query,
+	variables,
+	next,
+	cache,
+}: {
+	query: TypedDocumentString<TResult, TypeVariables>;
+	variables: TypeVariables;
+	next?: NextFetchRequestConfig;
+	cache?: RequestCache;
+}): Promise<TResult> => {
 	if (!process.env.GRAPHQL_URL) {
 		throw new Error("Missing GRAPHQL_URL env variable");
 	}
@@ -17,6 +24,8 @@ export const executeGraphql = async <TResult, TypeVariables>(
 			query,
 			variables,
 		}),
+		next,
+		cache,
 	});
 	type graphqlResponse<T> =
 		| { data?: undefined; errors: { message: string }[] }

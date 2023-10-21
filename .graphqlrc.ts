@@ -20,6 +20,7 @@ const config: CodegenConfig = {
 				defaultScalarType: "unknown",
 				skipTypename: true,
 				documentMode: "string",
+				
 			},
 		},
 	},

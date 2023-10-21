@@ -25,6 +25,7 @@ export const SingleProduct = async ({
 				)}
 				<p>{product.description}</p>
 				<ProductListItemDesc product={product} />
+				
 			</article>
 			<aside data-testid="related-products">
 				<div className="py-16">

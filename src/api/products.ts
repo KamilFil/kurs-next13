@@ -6,10 +6,10 @@ import {
 } from "@/gql/graphql";
 
 export const getProductsList = async () => {
-	const graphqlResponse = await executeGraphql(
-		ProductGetListDocument,
-		{},
-	);
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetListDocument,
+		variables: {},
+	});
 
 	return graphqlResponse.products;
 };
@@ -17,20 +17,20 @@ export const getProductsList = async () => {
 export const getProductsListByCategory = async (
 	categorySlug: string,
 ) => {
-	const graphqlResponse = await executeGraphql(
-		ProductGetByCategorySlugDocument,
-		{
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetByCategorySlugDocument,
+		variables: {
 			slug: categorySlug,
 		},
-	);
+	});
 
 	return graphqlResponse.categories[0]?.products;
 };
 
 export const getProductById = async (id: string) => {
-	const graphqlResponse = await executeGraphql(
-		ProductGetByIdDocument,
-		{ id: id },
-	);
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: { id: id },
+	});
 	return graphqlResponse.products[0];
 };

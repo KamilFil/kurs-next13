@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getCartByFromCookies } from "@/api/cart";
 import { IncrementProductQuantity } from "@/ui/atoms/IncrementProductQuantity";
+import { RemoveButton } from "@/ui/atoms/RemoveButton";
 
 export default async function CartPage() {
 	const cart = await getCartByFromCookies();
@@ -30,6 +31,9 @@ export default async function CartPage() {
 										/>
 									</td>
 									<td>{item.product.price}</td>
+									<td>
+										<RemoveButton itemId={item.id} />
+									</td>
 								</tr>
 							),
 					)}

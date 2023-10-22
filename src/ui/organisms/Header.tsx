@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ShoppingBasket } from "lucide-react";
+import { SearchInput } from "../molecules/SearchInput";
 import { NavBar } from "./NavBar";
 import { getCartByFromCookies } from "@/api/cart";
 
@@ -22,6 +23,7 @@ export const Header = async () => {
 							{quantity}
 						</span>
 					</Link>
+					<SearchInput />
 				</div>
 			</div>
 		</header>

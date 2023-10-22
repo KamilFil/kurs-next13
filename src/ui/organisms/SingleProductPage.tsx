@@ -2,7 +2,10 @@ import { Suspense } from "react";
 import { ProductCoverImage } from "../atoms/ProductCoverlmage";
 import { ProductListItemDesc } from "../atoms/ProductListItemDesc";
 import { SuggestionsProductList } from "../molecules/SuggestedProductList";
+import { AddToCartButton } from "../atoms/AddtoCartButton";
+import { Reviews } from "../molecules/Reviews";
 import { type SingleProductFragment } from "@/gql/graphql";
+import { addToCart, getOrCreateCart } from "@/api/cart";
 
 type SingleProductType = {
 	product: SingleProductFragment;
@@ -11,6 +14,13 @@ type SingleProductType = {
 export const SingleProduct = async ({
 	product,
 }: SingleProductType) => {
+	async function addToCartAction(_formData: FormData) {
+		"use server";
+		const cart = await getOrCreateCart();
+
+		await addToCart(cart.id, product.id);
+	}
+
 	return (
 		<>
 			<article>
@@ -25,7 +35,9 @@ export const SingleProduct = async ({
 				)}
 				<p>{product.description}</p>
 				<ProductListItemDesc product={product} />
-				
+				<form action={addToCartAction}>
+					<AddToCartButton />
+				</form>
 			</article>
 			<aside data-testid="related-products">
 				<div className="py-16">
@@ -34,6 +46,7 @@ export const SingleProduct = async ({
 					</Suspense>
 				</div>
 			</aside>
+			<Reviews product={product} />
 		</>
 	);
 };

@@ -1,7 +1,4 @@
-import { revalidateTag } from "next/cache";
-import { AddToCartButton } from "./AddtoCartButton";
 import { type ProductListItemFragment } from "@/gql/graphql";
-import { addToCart, getOrCreateCart } from "@/api/cart";
 
 type ProductListItemDescProps = {
 	product: ProductListItemFragment;
@@ -10,20 +7,10 @@ type ProductListItemDescProps = {
 export const ProductListItemDesc = ({
 	product,
 }: ProductListItemDescProps) => {
-	async function addToCartAction(_formData: FormData) {
-		"use server";
-		const cart = await getOrCreateCart();
-
-		await addToCart(cart.id, product.id);
-
-		// revalidatePath("/");
-		revalidateTag("cart");
-	}
-
 	return (
 		<div className="flex flex-col justify-between">
 			<div className="flex flex-col justify-between">
-				<h3 className="text-xl font-bold">{product.name}</h3>
+				<h2 className="text-xl font-bold">{product.name}</h2>
 				{product.categories[0] && (
 					<p className="text-sm text-gray-500">
 						<span className="sr-only">Kategoria:</span>{" "}
@@ -32,10 +19,9 @@ export const ProductListItemDesc = ({
 				)}
 			</div>
 			<div className="flex justify-between">
-				<p className="text-sm">{product.price}</p>
-				<form action={addToCartAction}>
-					<AddToCartButton />
-				</form>
+				<p className="text-sm" data-testid="product-price">
+					{product.price}
+				</p>
 			</div>
 		</div>
 	);

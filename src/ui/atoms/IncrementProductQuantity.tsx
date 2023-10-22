@@ -1,7 +1,8 @@
 "use client";
-
+import { useRouter } from "next/navigation";
+import { revalidateTag } from "next/cache";
 import { experimental_useOptimistic as useOptimistic } from "react";
-import { ChangeQuantityItem } from "@/app/cart/action";
+import { ChangeQuantityItem, removeItem } from "@/app/cart/action";
 
 export const IncrementProductQuantity = ({
 	quantity,
@@ -10,35 +11,37 @@ export const IncrementProductQuantity = ({
 	quantity: number;
 	itemId: string;
 }) => {
+	const router = useRouter();
 	const [optimisticQuantity, setOptimisticQuantity] =
 		useOptimistic(quantity);
-
-	const handleIncrement = async () => {
-		setOptimisticQuantity(optimisticQuantity + 1);
-		await ChangeQuantityItem(itemId, optimisticQuantity + 1);
-	};
-
-	const handleDecrement = async () => {
-		setOptimisticQuantity(optimisticQuantity - 1);
-		await ChangeQuantityItem(itemId, optimisticQuantity - 1);
-	};
 
 	return (
 		<form>
 			<button
-				formAction={handleIncrement}
-				data-testid="increment"
-				className="border bg-slate-200"
-			>
-				+
-			</button>
-			{optimisticQuantity}
-			<button
-				formAction={handleDecrement}
 				data-testid="decrement"
+				formAction={async () => {
+					if (optimisticQuantity === 1) {
+						await removeItem(itemId);
+						revalidateTag("cart");
+						router.refresh();
+					}
+					setOptimisticQuantity(optimisticQuantity - 1);
+					await ChangeQuantityItem(itemId, optimisticQuantity - 1);
+				}}
 				className="border bg-slate-200"
 			>
 				-
+			</button>
+			<span data-testid="quantity">{optimisticQuantity}</span>
+			<button
+				data-testid="increment"
+				formAction={async () => {
+					setOptimisticQuantity(optimisticQuantity + 1);
+					await ChangeQuantityItem(itemId, optimisticQuantity + 1);
+				}}
+				className="border bg-slate-200"
+			>
+				+
 			</button>
 		</form>
 	);

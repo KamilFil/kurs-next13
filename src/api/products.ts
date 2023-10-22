@@ -3,12 +3,19 @@ import {
 	ProductGetByCategorySlugDocument,
 	ProductGetByIdDocument,
 	ProductGetListDocument,
+	type ProductOrderByInput,
 } from "@/gql/graphql";
 
-export const getProductsList = async () => {
+export const getProductsList = async (
+	search = "",
+	orderBy: ProductOrderByInput = "createdAt_ASC",
+) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductGetListDocument,
-		variables: {},
+		variables: {
+			search: search,
+			orderBy: orderBy,
+		},
 		// cache: 'no-store'
 		next: {
 			revalidate: 15,

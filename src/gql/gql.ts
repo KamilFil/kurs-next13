@@ -20,9 +20,10 @@ const documents = {
     "fragment Cart on Order {\n  id\n  orderItems {\n    id\n    quantity\n    product {\n      id\n      name\n      price\n    }\n  }\n}": types.CartFragmentDoc,
     "mutation CartRemoveProduct($itemId: ID!) {\n  deleteOrderItem(where: {id: $itemId}) {\n    id\n  }\n}": types.CartRemoveProductDocument,
     "mutation CartSetProductQuantity($itemId: ID!, $quantity: Int!) {\n  updateOrderItem(where: {id: $itemId}, data: {quantity: $quantity}) {\n    id\n  }\n}": types.CartSetProductQuantityDocument,
+    "query GetCollectionSlug($slugName: String!) {\n  collections(where: {slug: $slugName}) {\n    slug\n    name\n    products(first: 10) {\n      name\n      id\n    }\n  }\n}": types.GetCollectionSlugDocument,
     "query ProductGetById($id: ID!) {\n  products(where: {id: $id}) {\n    ...SingleProduct\n  }\n}": types.ProductGetByIdDocument,
     "fragment SingleProduct on Product {\n  id\n  name\n  description\n  price\n  categories(first: 1) {\n    name\n  }\n  images(first: 1) {\n    url\n    width\n    height\n  }\n  reviews {\n    rating\n  }\n}": types.SingleProductFragmentDoc,
-    "query ProductGetList {\n  products(first: 10) {\n    ...ProductListItem\n  }\n}": types.ProductGetListDocument,
+    "query ProductGetList($search: String!, $orderBy: ProductOrderByInput!) {\n  products(first: 10, where: {_search: $search}, orderBy: $orderBy) {\n    ...ProductListItem\n  }\n}": types.ProductGetListDocument,
     "fragment ProductListItem on Product {\n  id\n  name\n  categories(first: 1) {\n    name\n  }\n  images(first: 1) {\n    url\n  }\n  price\n}": types.ProductListItemFragmentDoc,
     "query ProductGetByCategorySlug($slug: String!) {\n  categories(where: {slug: $slug}) {\n    products(first: 10) {\n      ...ProductListItem\n    }\n  }\n}": types.ProductGetByCategorySlugDocument,
 };
@@ -54,6 +55,10 @@ export function graphql(source: "mutation CartSetProductQuantity($itemId: ID!, $
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "query GetCollectionSlug($slugName: String!) {\n  collections(where: {slug: $slugName}) {\n    slug\n    name\n    products(first: 10) {\n      name\n      id\n    }\n  }\n}"): typeof import('./graphql').GetCollectionSlugDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "query ProductGetById($id: ID!) {\n  products(where: {id: $id}) {\n    ...SingleProduct\n  }\n}"): typeof import('./graphql').ProductGetByIdDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -62,7 +67,7 @@ export function graphql(source: "fragment SingleProduct on Product {\n  id\n  na
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductGetList {\n  products(first: 10) {\n    ...ProductListItem\n  }\n}"): typeof import('./graphql').ProductGetListDocument;
+export function graphql(source: "query ProductGetList($search: String!, $orderBy: ProductOrderByInput!) {\n  products(first: 10, where: {_search: $search}, orderBy: $orderBy) {\n    ...ProductListItem\n  }\n}"): typeof import('./graphql').ProductGetListDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -12,16 +12,20 @@ export const metadata: Metadata = {
 
 export default function HomePage({
 	children,
+	modal,
 }: {
 	children: React.ReactNode;
+	modal: React.ReactNode;
 }) {
 	return (
 		<html lang="pl">
 			<body className={inter.className}>
 				<Header />
+
 				<section className="mx-auto max-w-7xl p-8">
 					{children}
 				</section>
+				{modal}
 			</body>
 		</html>
 	);

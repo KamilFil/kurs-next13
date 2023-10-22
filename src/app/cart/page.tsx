@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+
 import { getCartByFromCookies } from "@/api/cart";
 import { IncrementProductQuantity } from "@/ui/atoms/IncrementProductQuantity";
 import { RemoveButton } from "@/ui/atoms/RemoveButton";
@@ -24,7 +25,7 @@ export default async function CartPage() {
 							item.product && (
 								<tr key={item.id}>
 									<td>{item.product.name}</td>
-									<td data-testid="quantity" className="text-center">
+									<td className="text-center">
 										<IncrementProductQuantity
 											quantity={item.quantity}
 											itemId={item.id}

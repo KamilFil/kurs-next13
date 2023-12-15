@@ -34,7 +34,7 @@ export type Aggregate = {
 };
 
 /** Asset system model */
-export type Asset = Node & {
+export type Asset = Entity & Node & {
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
   /** User that created this document */
@@ -51,6 +51,7 @@ export type Asset = Node & {
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID']['output'];
+  imageCollection: Array<Collection>;
   /** System Locale field */
   locale: Locale;
   /** Get the other localizations for this document */
@@ -104,6 +105,20 @@ export type AssetHistoryArgs = {
   limit?: Scalars['Int']['input'];
   skip?: Scalars['Int']['input'];
   stageOverride?: InputMaybe<Stage>;
+};
+
+
+/** Asset system model */
+export type AssetImageCollectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<CollectionOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CollectionWhereInput>;
 };
 
 
@@ -193,6 +208,7 @@ export type AssetCreateInput = {
   fileName: Scalars['String']['input'];
   handle: Scalars['String']['input'];
   height?: InputMaybe<Scalars['Float']['input']>;
+  imageCollection?: InputMaybe<CollectionCreateManyInlineInput>;
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: InputMaybe<AssetCreateLocalizationsInput>;
   mimeType?: InputMaybe<Scalars['String']['input']>;
@@ -294,6 +310,9 @@ export type AssetManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  imageCollection_every?: InputMaybe<CollectionWhereInput>;
+  imageCollection_none?: InputMaybe<CollectionWhereInput>;
+  imageCollection_some?: InputMaybe<CollectionWhereInput>;
   productImages_every?: InputMaybe<ProductWhereInput>;
   productImages_none?: InputMaybe<ProductWhereInput>;
   productImages_some?: InputMaybe<ProductWhereInput>;
@@ -368,6 +387,7 @@ export type AssetUpdateInput = {
   fileName?: InputMaybe<Scalars['String']['input']>;
   handle?: InputMaybe<Scalars['String']['input']>;
   height?: InputMaybe<Scalars['Float']['input']>;
+  imageCollection?: InputMaybe<CollectionUpdateManyInlineInput>;
   /** Manage document localizations */
   localizations?: InputMaybe<AssetUpdateLocalizationsInput>;
   mimeType?: InputMaybe<Scalars['String']['input']>;
@@ -601,6 +621,9 @@ export type AssetWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  imageCollection_every?: InputMaybe<CollectionWhereInput>;
+  imageCollection_none?: InputMaybe<CollectionWhereInput>;
+  imageCollection_some?: InputMaybe<CollectionWhereInput>;
   mimeType?: InputMaybe<Scalars['String']['input']>;
   /** All values containing the given string. */
   mimeType_contains?: InputMaybe<Scalars['String']['input']>;
@@ -715,7 +738,7 @@ export type BatchPayload = {
 };
 
 /** Category of products, e.g. Menswear. */
-export type Category = Node & {
+export type Category = Entity & Node & {
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
   /** User that created this document */
@@ -1302,7 +1325,7 @@ export type CategoryWhereUniqueInput = {
 };
 
 /** Collection of products, e.g. Winter Sale. */
-export type Collection = Node & {
+export type Collection = Entity & Node & {
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
   /** User that created this document */
@@ -1314,6 +1337,7 @@ export type Collection = Node & {
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID']['output'];
+  image: Asset;
   /** System Locale field */
   locale: Locale;
   /** Get the other localizations for this document */
@@ -1361,6 +1385,13 @@ export type CollectionHistoryArgs = {
   limit?: Scalars['Int']['input'];
   skip?: Scalars['Int']['input'];
   stageOverride?: InputMaybe<Stage>;
+};
+
+
+/** Collection of products, e.g. Winter Sale. */
+export type CollectionImageArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
 };
 
 
@@ -1443,6 +1474,7 @@ export type CollectionCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
+  image: AssetCreateOneInlineInput;
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: InputMaybe<CollectionCreateLocalizationsInput>;
   /** name input for default locale (en) */
@@ -1542,6 +1574,7 @@ export type CollectionManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  image?: InputMaybe<AssetWhereInput>;
   products_every?: InputMaybe<ProductWhereInput>;
   products_none?: InputMaybe<ProductWhereInput>;
   products_some?: InputMaybe<ProductWhereInput>;
@@ -1601,6 +1634,7 @@ export type CollectionOrderByInput =
 export type CollectionUpdateInput = {
   /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<AssetUpdateOneInlineInput>;
   /** Manage document localizations */
   localizations?: InputMaybe<CollectionUpdateLocalizationsInput>;
   /** name input for default locale (en) */
@@ -1791,6 +1825,7 @@ export type CollectionWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  image?: InputMaybe<AssetWhereInput>;
   name?: InputMaybe<Scalars['String']['input']>;
   /** All values containing the given string. */
   name_contains?: InputMaybe<Scalars['String']['input']>;
@@ -1912,7 +1947,7 @@ export type ConnectPositionInput = {
   start?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type Currency = Node & {
+export type Currency = Entity & Node & {
   code: Scalars['String']['output'];
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
@@ -2456,7 +2491,7 @@ export type Entity = {
   stage: Stage;
 };
 
-/** This enumeration holds all typenames that implement the Entity interface. Components implement the Entity interface. At the moment models are not supported, models are listed in this enum to avoid an empty enum without any components. */
+/** This enumeration holds all typenames that implement the Entity interface. Components and models implement the Entity interface. */
 export type EntityTypeName =
   /** Asset system model */
   | 'Asset'
@@ -2479,7 +2514,7 @@ export type EntityTypeName =
   /** User system model */
   | 'User';
 
-/** Allows to specify input to query components directly */
+/** Allows to specify input to query models and components directly */
 export type EntityWhereInput = {
   /** The ID of an object */
   id: Scalars['ID']['input'];
@@ -2515,7 +2550,6 @@ export type ImageTransformationInput = {
 
 /** Locale system enumeration */
 export type Locale =
-  | 'de'
   /** System locale */
   | 'en';
 
@@ -4503,7 +4537,7 @@ export type Node = {
   stage: Stage;
 };
 
-export type Order = Node & {
+export type Order = Entity & Node & {
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
   /** User that created this document */
@@ -4635,7 +4669,7 @@ export type OrderEdge = {
   node: Order;
 };
 
-export type OrderItem = Node & {
+export type OrderItem = Entity & Node & {
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
   /** User that created this document */
@@ -5521,7 +5555,7 @@ export type PageInfo = {
   startCursor?: Maybe<Scalars['String']['output']>;
 };
 
-export type Product = Node & {
+export type Product = Entity & Node & {
   categories: Array<Category>;
   collections: Array<Collection>;
   /** The time the document was created */
@@ -5705,7 +5739,7 @@ export type ProductColor =
   | 'PINK'
   | 'PURPLE';
 
-export type ProductColorVariant = Node & {
+export type ProductColorVariant = Entity & Node & {
   color: ProductColor;
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
@@ -6441,7 +6475,7 @@ export type ProductSize =
   | 'XL'
   | 'XS';
 
-export type ProductSizeColorVariant = Node & {
+export type ProductSizeColorVariant = Entity & Node & {
   color: ProductColor;
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
@@ -6989,7 +7023,7 @@ export type ProductSizeColorVariantWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type ProductSizeVariant = Node & {
+export type ProductSizeVariant = Entity & Node & {
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
   /** User that created this document */
@@ -8610,7 +8644,7 @@ export type RgbaInput = {
   r: Scalars['RGBAHue']['input'];
 };
 
-export type Review = Node & {
+export type Review = Entity & Node & {
   content: Scalars['String']['output'];
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
@@ -8630,7 +8664,7 @@ export type Review = Node & {
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   /** User that last published this document */
   publishedBy?: Maybe<User>;
-  rating?: Maybe<Scalars['Int']['output']>;
+  rating: Scalars['Int']['output'];
   scheduledIn: Array<ScheduledOperation>;
   /** System stage field */
   stage: Stage;
@@ -8713,7 +8747,7 @@ export type ReviewCreateInput = {
   headline: Scalars['String']['input'];
   name: Scalars['String']['input'];
   product?: InputMaybe<ProductCreateOneInlineInput>;
-  rating?: InputMaybe<Scalars['Int']['input']>;
+  rating: Scalars['Int']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -9228,7 +9262,7 @@ export type RichText = {
 };
 
 /** Scheduled Operation system model */
-export type ScheduledOperation = Node & {
+export type ScheduledOperation = Entity & Node & {
   affectedDocuments: Array<ScheduledOperationAffectedDocument>;
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
@@ -9658,7 +9692,7 @@ export type ScheduledOperationWhereUniqueInput = {
 };
 
 /** Scheduled Release system model */
-export type ScheduledRelease = Node & {
+export type ScheduledRelease = Entity & Node & {
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
   /** User that created this document */
@@ -10252,7 +10286,7 @@ export type UnpublishLocaleInput = {
 };
 
 /** User system model */
-export type User = Node & {
+export type User = Entity & Node & {
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
   /** Get the document in other stages */
@@ -10771,16 +10805,21 @@ export type GetCollectionSlugQueryVariables = Exact<{
 }>;
 
 
-export type GetCollectionSlugQuery = { collections: Array<{ slug: string, name: string, products: Array<{ name: string, id: string }> }> };
+export type GetCollectionSlugQuery = { collections: Array<{ slug: string, name: string, products: Array<{ name: string, id: string, price: number, description: string, images: Array<{ url: string }> }> }> };
+
+export type CollectionGetCategoryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CollectionGetCategoryQuery = { collections: Array<{ slug: string, name: string, image: { url: string } }> };
 
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type ProductGetByIdQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, width?: number | null, height?: number | null }>, reviews: Array<{ rating?: number | null }> }> };
+export type ProductGetByIdQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, width?: number | null, height?: number | null }>, reviews: Array<{ rating: number }> }> };
 
-export type SingleProductFragment = { id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, width?: number | null, height?: number | null }>, reviews: Array<{ rating?: number | null }> };
+export type SingleProductFragment = { id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, width?: number | null, height?: number | null }>, reviews: Array<{ rating: number }> };
 
 export type ProductGetListQueryVariables = Exact<{
   search: Scalars['String']['input'];
@@ -10926,10 +10965,26 @@ export const GetCollectionSlugDocument = new TypedDocumentString(`
     products(first: 10) {
       name
       id
+      images(first: 1) {
+        url
+      }
+      price
+      description
     }
   }
 }
     `) as unknown as TypedDocumentString<GetCollectionSlugQuery, GetCollectionSlugQueryVariables>;
+export const CollectionGetCategoryDocument = new TypedDocumentString(`
+    query CollectionGetCategory {
+  collections {
+    slug
+    name
+    image {
+      url
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionGetCategoryQuery, CollectionGetCategoryQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID!) {
   products(where: {id: $id}) {

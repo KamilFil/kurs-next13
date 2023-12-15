@@ -26,7 +26,7 @@ export const SortProductBox = () => {
 			//@ts-ignore
 			router.push(`${pathname}`);
 		}
-	}, [optionValue]);
+	}, [optionValue, pathname, router]);
 
 	const handleOnChange = (
 		e: React.ChangeEvent<HTMLSelectElement>,

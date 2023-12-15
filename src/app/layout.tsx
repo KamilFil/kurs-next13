@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { Header } from "@/ui/organisms/Header";
+import { Footer } from "@/ui/organisms/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function HomePage({
 					{children}
 				</section>
 				{modal}
+				<Footer />
 			</body>
 		</html>
 	);

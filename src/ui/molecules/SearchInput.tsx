@@ -48,8 +48,12 @@ export const SearchInput = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form
+			className="rounded-lg border  border-slate-500 p-1"
+			onSubmit={handleSubmit}
+		>
 			<input
+				className="text-sm"
 				type="search"
 				placeholder="Search"
 				onChange={handleOnChange}

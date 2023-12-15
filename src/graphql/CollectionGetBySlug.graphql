@@ -5,6 +5,11 @@ query GetCollectionSlug($slugName: String!) {
 		products(first: 10) {
 			name
 			id
+			images(first: 1) {
+				url
+			}
+			price
+			description
 		}
 	}
 }

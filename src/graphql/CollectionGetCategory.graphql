@@ -1,0 +1,9 @@
+query CollectionGetCategory {
+	collections {
+		slug
+		name
+		image {
+			url
+		}
+	}
+}

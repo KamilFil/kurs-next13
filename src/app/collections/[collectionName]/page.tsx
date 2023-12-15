@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { type Metadata } from "next";
+import Image from "next/image";
 import { getCollestiongBySlug } from "@/api/collection";
 export const generateMetadata = async ({
 	params,
@@ -12,8 +13,6 @@ export const generateMetadata = async ({
 	if (!collection) {
 		throw notFound();
 	}
-
-	console.log(collection);
 
 	return {
 		title: `${collection.name}`,
@@ -40,6 +39,13 @@ export default async function CollectionPage({
 				{collection.products.map((product) => (
 					<div key={product.id}>
 						<h1>{product.name}</h1>
+						<Image
+							width={200}
+							height={200}
+							src={`${product?.images?.[0]?.url || "default.jpg"}`}
+							alt={product.name}
+						/>
+						<p>{product.price}</p>
 					</div>
 				))}
 			</div>

@@ -13,5 +13,6 @@ fragment SingleProduct on Product {
 	}
 	reviews {
 		rating
+		content
 	}
 }

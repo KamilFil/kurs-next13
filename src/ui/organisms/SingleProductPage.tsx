@@ -23,30 +23,35 @@ export const SingleProduct = async ({
 
 	return (
 		<>
-			<article>
-				{product.name && (
-					<h1 className="text-2xl font-bold">{product.name}</h1>
-				)}
-				{product.images[0] && (
-					<ProductCoverImage
-						src={product.images[0].url}
-						alt={product.name}
-					/>
-				)}
-				<p>{product.description}</p>
-				<ProductListItemDesc product={product} />
-				<form action={addToCartAction}>
-					<AddToCartButton />
-				</form>
-			</article>
-			<aside data-testid="related-products">
-				<div className="py-16">
-					<Suspense>
-						<SuggestionsProductList />
-					</Suspense>
+			<article className="mt-5 flex ">
+				<div className="basis-1/2">
+					{product.images[0] && (
+						<ProductCoverImage
+							src={product.images[0].url}
+							alt={product.name}
+						/>
+					)}
 				</div>
-			</aside>
-			<Reviews product={product} />
+				<div className="basis-1/2">
+					{product.name && (
+						<h1 className="text-2xl font-bold">{product.name}</h1>
+					)}
+					<ProductListItemDesc product={product} />
+					<p>{product.description}</p>
+
+					<form action={addToCartAction}>
+						<AddToCartButton />
+					</form>
+				</div>
+			</article>
+			<Suspense>
+				<aside data-testid="related-products">
+					<div className="py-16">
+						<SuggestionsProductList />
+					</div>
+				</aside>
+				<Reviews product={product} />
+			</Suspense>
 		</>
 	);
 };

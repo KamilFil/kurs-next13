@@ -1,7 +1,10 @@
 "use client";
-import { useState } from "react";
-import { type SingleProductFragment } from "@/gql/graphql";
 
+import { useState } from "react";
+
+import { UserCircle2 } from "lucide-react";
+import { ReviewsStar } from "../atoms/ReviewsStar";
+import { type SingleProductFragment } from "@/gql/graphql";
 const initalState = {
 	headline: "",
 	content: "",
@@ -25,13 +28,12 @@ export const Reviews = ({
 	};
 
 	const handleSubmit = async () => {
-		console.log("test");
 		setReview(initalState);
 	};
 
 	return (
-		<div className="mx-auto max-w-2xl lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-x-8 lg:py-16">
-			<div className="border border-gray-300 p-8 lg:col-span-4">
+		<div className="mx-auto flex justify-around">
+			<div className="basis-1/3 border border-gray-300 p-8">
 				<h2>Customers Reviews</h2>
 				<form
 					data-testid="add-review-form"
@@ -49,7 +51,7 @@ export const Reviews = ({
 							name="headline"
 							value={review.headline}
 							onChange={() => handleOnChange}
-							className="border border-gray-300 p-2"
+							className="w-full border border-gray-300 p-2"
 						></input>
 					</label>
 					<label>
@@ -58,7 +60,7 @@ export const Reviews = ({
 							name="content"
 							value={review.content}
 							onChange={() => handleOnChange}
-							className="border border-gray-300 p-2"
+							className="w-full border border-gray-300 p-2"
 						/>
 					</label>
 					<label>
@@ -68,7 +70,7 @@ export const Reviews = ({
 							name="rating"
 							value={review.rating}
 							onChange={() => handleOnChange}
-							className="border border-gray-300 p-2"
+							className="w-full border border-gray-300 p-2"
 						></input>
 					</label>
 					<label>
@@ -77,7 +79,7 @@ export const Reviews = ({
 							name="name"
 							value={review.name}
 							onChange={() => handleOnChange}
-							className="border border-gray-300 p-2"
+							className="w-full border border-gray-300 p-2"
 						></input>
 					</label>
 					<label>
@@ -86,15 +88,31 @@ export const Reviews = ({
 							name="email"
 							value={review.email}
 							onChange={() => handleOnChange}
-							className="border border-gray-300 p-2"
+							className="w-full border border-gray-300 p-2"
 						></input>
 					</label>
 				</form>
 			</div>
-			<div className="mt-16 lg:col-span-7 lg:col-start-6 lg:mt-0">
-				<div className="">
-					{product.reviews ? <p>test</p> : <p>No reviews yet</p>}
-				</div>
+
+			<div className="flex w-full basis-3/5 flex-col">
+				<h2 className="text-lg font-bold text-cyan-900">
+					Opinie o produkcie
+				</h2>
+				{product.reviews.length !== 0 ? (
+					product.reviews.map((review) => (
+						<div key={review.rating} className=" flex border-b p-4">
+							<div className="pr-3">
+								<UserCircle2 size={40} className="text-cyan-800" />
+							</div>
+							<div>
+								<ReviewsStar rating={review.rating} />
+								<p>{review.content}</p>
+							</div>
+						</div>
+					))
+				) : (
+					<p>Ten produkt nie ma jeszcze opinii.</p>
+				)}
 			</div>
 		</div>
 	);

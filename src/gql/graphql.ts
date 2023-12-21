@@ -10818,9 +10818,9 @@ export type ProductGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type ProductGetByIdQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, width?: number | null, height?: number | null }>, reviews: Array<{ rating: number }> }> };
+export type ProductGetByIdQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, width?: number | null, height?: number | null }>, reviews: Array<{ rating: number, content: string }> }> };
 
-export type SingleProductFragment = { id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, width?: number | null, height?: number | null }>, reviews: Array<{ rating: number }> };
+export type SingleProductFragment = { id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, width?: number | null, height?: number | null }>, reviews: Array<{ rating: number, content: string }> };
 
 export type ProductGetListQueryVariables = Exact<{
   search: Scalars['String']['input'];
@@ -10884,6 +10884,7 @@ export const SingleProductFragmentDoc = new TypedDocumentString(`
   }
   reviews {
     rating
+    content
   }
 }
     `, {"fragmentName":"SingleProduct"}) as unknown as TypedDocumentString<SingleProductFragment, unknown>;
@@ -11008,6 +11009,7 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
   }
   reviews {
     rating
+    content
   }
 }`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
 export const ProductGetListDocument = new TypedDocumentString(`

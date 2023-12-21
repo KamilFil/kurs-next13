@@ -1,6 +1,6 @@
-query ProductGetByCategorySlug($slug: String!) {
+query ProductGetByCategorySlug($slug: String!, $pageNum: Int!) {
 	categories(where: { slug: $slug }) {
-		products(first: 10) {
+		products(first: 4, skip: $pageNum) {
 			...ProductListItem
 		}
 	}

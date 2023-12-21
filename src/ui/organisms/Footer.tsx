@@ -31,8 +31,8 @@ export const Footer = () => {
 						<p>Odwiedź nas</p>
 					</div>
 				</div>
-				<div className="text-center">
-					<p>Copyright</p>
+				<div className="text-center text-xs">
+					<p>Copyright © 2023 - Projekt z kursu Next13Masters</p>
 				</div>
 			</div>
 		</footer>

@@ -2518,6 +2518,7 @@ export type EntityTypeName =
 export type EntityWhereInput = {
   /** The ID of an object */
   id: Scalars['ID']['input'];
+  locale?: InputMaybe<Locale>;
   stage: Stage;
   /** The Type name of an object */
   typename: EntityTypeName;
@@ -10833,6 +10834,7 @@ export type ProductListItemFragment = { id: string, name: string, price: number,
 
 export type ProductGetByCategorySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
+  pageNum: Scalars['Int']['input'];
 }>;
 
 
@@ -11026,9 +11028,9 @@ export const ProductGetListDocument = new TypedDocumentString(`
   price
 }`) as unknown as TypedDocumentString<ProductGetListQuery, ProductGetListQueryVariables>;
 export const ProductGetByCategorySlugDocument = new TypedDocumentString(`
-    query ProductGetByCategorySlug($slug: String!) {
+    query ProductGetByCategorySlug($slug: String!, $pageNum: Int!) {
   categories(where: {slug: $slug}) {
-    products(first: 10) {
+    products(first: 4, skip: $pageNum) {
       ...ProductListItem
     }
   }

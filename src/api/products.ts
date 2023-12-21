@@ -27,11 +27,13 @@ export const getProductsList = async (
 
 export const getProductsListByCategory = async (
 	categorySlug: string,
+	pageNumber: number = 0,
 ) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductGetByCategorySlugDocument,
 		variables: {
 			slug: categorySlug,
+			pageNum: Number(pageNumber * 4),
 		},
 	});
 

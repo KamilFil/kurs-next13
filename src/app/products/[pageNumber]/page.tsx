@@ -27,7 +27,6 @@ export default async function ProductsPage({
 	};
 	const sortQuery = sortProduct ?? "createdAt_ASC";
 	const products = await getProductsList("", sortQuery);
-	console.log(products);
 	products.splice(4, products.length);
 
 	return (
@@ -39,7 +38,7 @@ export default async function ProductsPage({
 			<ProductList products={products} />
 			<Pagination
 				urlData={"products"}
-				numberPagination={"1"}
+				numberPagination={1}
 				paginationLength={products.length}
 			/>
 		</>

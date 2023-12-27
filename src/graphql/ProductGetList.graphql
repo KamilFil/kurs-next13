@@ -1,0 +1,12 @@
+query ProductGetList(
+	$search: String!
+	$orderBy: ProductOrderByInput!
+) {
+	products(
+		first: 10
+		where: { _search: $search }
+		orderBy: $orderBy
+	) {
+		...ProductListItem
+	}
+}

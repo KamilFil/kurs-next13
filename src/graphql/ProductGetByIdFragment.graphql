@@ -1,0 +1,18 @@
+fragment SingleProduct on Product {
+	id
+	name
+	description
+	price
+	categories(first: 1) {
+		name
+	}
+	images(first: 1) {
+		url
+		width
+		height
+	}
+	reviews {
+		rating
+		content
+	}
+}

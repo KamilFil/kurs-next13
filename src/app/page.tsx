@@ -10,7 +10,7 @@ export default async function HomePage() {
 
 	return (
 		<>
-			<div className="collection flex  justify-around pb-8 pt-4">
+			<div className="collection flex  justify-around pb-8 pt-4 max-[960px]:flex-col">
 				{collectionCategory.map((e) => (
 					<>
 						<a href={`/collections/${e.slug}`}>

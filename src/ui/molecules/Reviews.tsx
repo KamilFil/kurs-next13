@@ -32,8 +32,8 @@ export const Reviews = ({
 	};
 
 	return (
-		<div className="mx-auto flex justify-around">
-			<div className="basis-1/3 border border-gray-300 p-8">
+		<div className="mx-auto flex justify-around max-[960px]:flex-col-reverse">
+			<div className="basis-1/3 border border-gray-300 p-8 ">
 				<h2>Customers Reviews</h2>
 				<form
 					data-testid="add-review-form"
@@ -94,7 +94,7 @@ export const Reviews = ({
 				</form>
 			</div>
 
-			<div className="flex w-full basis-3/5 flex-col">
+			<div className="flex w-full basis-3/5 flex-col max-[960px]:mb-5">
 				<h2 className="text-lg font-bold text-cyan-900">
 					Opinie o produkcie
 				</h2>

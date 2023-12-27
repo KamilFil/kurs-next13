@@ -14,10 +14,10 @@ export const ProductListItem = ({
 	return (
 		<li
 			key={product.id}
-			className="m-4 flex basis-1/5 border-spacing-2 flex-wrap justify-between border p-3"
+			className="m-4 flex basis-1/5 border-spacing-2 flex-wrap justify-between border p-3 "
 		>
 			<Link href={`/product/${product.id}`}>
-				<article>
+				<article className="max-[960px]:flex-col">
 					{product.images[0] && (
 						<ProductCoverImage
 							src={product.images[0].url}

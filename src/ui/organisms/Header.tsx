@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ShoppingBasket } from "lucide-react";
 import { SearchInput } from "../molecules/SearchInput";
 import { NavBar } from "./NavBar";
@@ -10,10 +11,15 @@ export const Header = async () => {
 	return (
 		<header className="sticky top-0 z-20 border-b bg-white bg-opacity-60 backdrop-blur-lg">
 			<div className="mx-auto flex max-w-7xl px-2 sm:px-4 lg:px-8">
-				<div className="flex w-full justify-between ">
-					<div className="flex items-center">
+				<div className="flex w-full justify-between overflow-x-scroll lg:mx-0 lg:h-16 lg:overflow-x-auto">
+					<div className="flex items-center ">
 						<Link href={"/"}>
-							<img className="w-120 h-8" src="/img/e-comm-shop.png" />
+							<Image
+								src="/img/e-comm-shop.png"
+								width={80}
+								height={60}
+								alt="logo"
+							></Image>
 						</Link>
 						<NavBar />
 					</div>

@@ -9,6 +9,9 @@ export const generateMetadata = async ({
 }: {
 	params: { category: string; pageNumber: number };
 }): Promise<Metadata> => {
+	if (Number(params.pageNumber) === 1) {
+		params.pageNumber = 0;
+	}
 	const categoryName = await getProductsListByCategory(
 		params.category,
 		params.pageNumber,
@@ -16,11 +19,13 @@ export const generateMetadata = async ({
 	if (!categoryName) {
 		throw notFound();
 	}
-
+	console.log(categoryName[0]?.categories[0]?.name);
 	const catName = categoryName[0]?.categories[0]?.name;
 
 	return {
-		title: `${catName} - Strona}`,
+		title: `${catName} ${
+			params.pageNumber === 0 ? "" : `- Strona ${params.pageNumber}`
+		}`,
 	};
 };
 

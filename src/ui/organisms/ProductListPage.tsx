@@ -9,7 +9,7 @@ export const ProductList = ({
 	return (
 		<ul
 			data-testid="products-list"
-			className="m-auto flex max-w-screen-xl flex-shrink flex-grow flex-row flex-wrap justify-around"
+			className="m-auto flex max-w-screen-xl flex-shrink flex-grow flex-row flex-wrap justify-around max-[960px]:flex-col "
 		>
 			{products.map((product) => {
 				return <ProductListItem key={product.id} product={product} />;

@@ -23,8 +23,8 @@ export const SingleProduct = async ({
 
 	return (
 		<>
-			<article className="mt-5 flex ">
-				<div className="basis-1/2">
+			<article className="mt-5 flex max-[960px]:flex-col">
+				<div className="basis-1/2 max-[960px]:w-full">
 					{product.images[0] && (
 						<ProductCoverImage
 							src={product.images[0].url}

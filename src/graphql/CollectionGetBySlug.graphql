@@ -10,6 +10,7 @@ query GetCollectionSlug($slugName: String!) {
 			}
 			price
 			description
+			slug
 		}
 	}
 }
